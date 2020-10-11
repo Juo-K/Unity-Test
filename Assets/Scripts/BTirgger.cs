@@ -27,11 +27,13 @@ public class BTirgger : MonoBehaviour
     private void OnCollisionEnter(Collision cother)
     {
         if (cother.collider.name == "Cube")
-        _Direction = cother.transform.position - _position;
-        _CPositon = cother.transform.position;
+        {
+            _Direction = cother.transform.position - _position;
+            //_CPositon = cother.transform.position;
+            //_CPositon += _Direction * 2;
 
-
-        _CPositon += _Direction * 2;
+            cother.rigidbody.AddForce(_Direction);
+        }
         //_rigidbody = cother.rigidbody.GetComponent<Rigidbody>();
         //_rigidbody.useGravity = false;
     }
