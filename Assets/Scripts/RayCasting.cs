@@ -7,6 +7,8 @@ public class RayCasting : MonoBehaviour
     //메인 카메라에 할당
     //메인 카메라에서 마우스로 반직선을 쐄;
 
+
+    private List<int> num = new List<int>();
     private Ray _ray;
     private Transform _sphereTransform = null;
     private Vector3 _direction;
@@ -17,6 +19,7 @@ public class RayCasting : MonoBehaviour
     private void Awake()
     {
         _sphereTransform = GameObject.Find("Sphere").transform;
+        
     }
 
     void Update()
@@ -49,4 +52,5 @@ public class RayCasting : MonoBehaviour
         Gizmos.DrawRay(_ray.origin, _ray.direction * _distance); // 방향 * 길이
     }
 
+    
 }
