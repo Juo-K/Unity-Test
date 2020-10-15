@@ -33,6 +33,11 @@ public class Moving : MonoBehaviour
                 _path = _navMeshAgent.path;
             }
         }
+
+       if(_animator.GetCurrentAnimatorStateInfo(0).IsName("Racer_Punch"))
+        {
+            _navMeshAgent.destination = this.transform.position;
+        }
     }
 
     private void FixedUpdate()
