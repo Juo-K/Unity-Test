@@ -7,7 +7,11 @@ public class Attacking : MonoBehaviour, IAction
     private ActionManager _actionManager = null;
     private Animator _animator = null;
     private Vector3 _mPos;
+    private Damage _target = null;
+    private Moving _moving = null;
 
+    [SerializeField, Range(1.0f, 10.0f)]
+    private float _range = 1.0f; //타겟 사이의 거리가 2.0f일때 작동
 
     public void Beging(object initValue)
     {
@@ -15,51 +19,58 @@ public class Attacking : MonoBehaviour, IAction
         Debug.Assert(target != null, "입력 가능 자료형  : Damage");
 
         _actionManager.StartAction(this); // 스크립트 자체를 넘김;
+        _target = target;
 
     }
 
     public void End()
     {
-        throw new System.NotImplementedException();
+        _target = null; // Damage
+        _animator.ResetTrigger("Attack");
     }
 
     private void Awake()
     {
         _actionManager = this.GetComponent<ActionManager>();
         _animator = this.GetComponent<Animator>();
+        _moving = this.GetComponent<Moving>();
     }
    
     void Update()
     {
-        //if (Input.GetMouseButtonDown(1))
-        //{
+        if (_target == null) return;
 
-        //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);//화면좌표계 상의 좌표를 반직선으로 바꿈; 바꾸고 싶은 값을 안에 집어넣음;
-        //    RaycastHit hit;
-        //    if (Physics.Raycast(ray, out hit, 500))//물체의 좌표까지 무조건감;
-        //    {
-        //        _mPos = hit.point;
+        Vector2 a = new Vector2(_target.transform.position.x, _target.transform.position.z);
+        Vector2 b = new Vector2(this.transform.position.x, this.transform.position.z);
 
-        //    }
-        //    if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Racer_Pench")  == false)
-        //    {
-        //        _animator.SetTrigger("Attack");
-        //        this.transform.LookAt(_mPos);
-        //    }
-
-        //}
-
+        if(Vector2.Distance(a,b) < _range)
+        {
+            _moving.End();
+            this.transform.LookAt(_target.transform.position);
+            _animator.SetTrigger("Attack");
+        }
+        else
+        {
+            _moving.Move(_target.transform.position);
+        }
     }
 
     private void OnAttack()
     {
         Debug.Log("Attack!");
+        _target.Hit();
     }
 
     private void OnAttackEnd()
     {
-        _animator.ResetTrigger("Attack");
+        //_animator.ResetTrigger("Attack");
+        End();
     }
 
-  
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(this.transform.position, _range);
+    }
+
 }

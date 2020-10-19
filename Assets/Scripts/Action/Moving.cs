@@ -25,7 +25,7 @@ public class Moving : MonoBehaviour, IAction
         Move(destination);
     }
 
-    private void Move(Vector3 destination)
+    public void Move(Vector3 destination)
     {
         _navMeshAgent.isStopped = false;
         _navMeshAgent.destination = destination;
