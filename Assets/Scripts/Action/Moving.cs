@@ -17,18 +17,30 @@ public class Moving : MonoBehaviour, IAction
     private Animator _animator = null;
     private float _speed = 0.0f;
 
+    private float h = 4.0f;
+
     public void Beging(object initValue)
     {
+
+
         Debug.Assert(initValue is Vector3, "입력 가능 자료형 : Vector3"); // 어설트가 뜰경우; 자동리턴
         _actionManager.StartAction(this);
         Vector3 destination = (Vector3)initValue;
+
+
         Move(destination);
     }
 
     public void Move(Vector3 destination)
     {
+
         _navMeshAgent.isStopped = false;
         _navMeshAgent.destination = destination;
+
+        if (_animator.GetCurrentAnimatorStateInfo(0).IsName("LocoMotion") == false)
+        {
+            _navMeshAgent.destination = this.transform.position;
+        }
     }
 
     public void End()
@@ -57,7 +69,7 @@ public class Moving : MonoBehaviour, IAction
        //     }
        // }
 
-       if(_animator.GetCurrentAnimatorStateInfo(0).IsName("Racer_Punch"))
+       if(_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
         {
             _navMeshAgent.destination = this.transform.position;
         }
@@ -71,7 +83,6 @@ public class Moving : MonoBehaviour, IAction
         //_speed = local.z / _navMeshAgent.speed;
         _animator.SetFloat("Speed", _speed);
 
-        
     }
 
    

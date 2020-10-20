@@ -135,7 +135,7 @@ ModelImporter:
     400126: mixamorig6:Spine
     400128: mixamorig6:Spine1
     400130: mixamorig6:Spine2
-    7400000: Racer_pench
+    7400000: Attack
     9500000: //RootNode
   externalObjects: {}
   materials:
@@ -166,7 +166,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Racer_pench
+      name: Attack
       takeName: mixamo.com
       firstFrame: 0
       lastFrame: 26
