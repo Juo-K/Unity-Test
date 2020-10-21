@@ -26,10 +26,10 @@ public class EnemyController : MonoBehaviour
     {
         if (InRange())
         {
-            _attacking.Beging(_player.GetComponent<Damage>());
+            _attacking.Begin(_player.GetComponent<Damage>());
         }
         else
-            _moving.Beging(_initPosition);
+            _moving.Begin(_initPosition);
     }
 
     private void Start()

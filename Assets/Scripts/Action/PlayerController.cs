@@ -9,11 +9,13 @@ public class PlayerController : MonoBehaviour
 
     private Moving _moving = null;
     private Attacking  _attacking = null;
+    private Sliding _sliding = null;
 
     private void Awake()
     {
         _moving = this.GetComponent<Moving>();
         _attacking = this.GetComponent<Attacking>();
+        _sliding = this.GetComponent<Sliding>();
     }
 
     void Start()
@@ -25,8 +27,22 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         // if()
+        if (Sliding() == true) return;
         if (Attacking() == true) return;
         if (Moving() == true)  return;
+    }
+
+    private bool Sliding()
+    {
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            _sliding.Begin(800.0f);
+          
+            return true;
+            
+        }
+        
+            return false;
     }
 
     private bool Attacking()
@@ -41,7 +57,7 @@ public class PlayerController : MonoBehaviour
                 if (damage == null)
                     continue;
 
-                _attacking.Beging(damage);
+                _attacking.Begin(damage);
                 return true;
             }
         }
@@ -56,7 +72,7 @@ public class PlayerController : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(GetMouseRay(), out hit, 500))
             {
-                _moving.Beging(hit.point);
+                _moving.Begin(hit.point);
                 return true;
             }
         }

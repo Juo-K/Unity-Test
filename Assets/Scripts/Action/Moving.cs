@@ -19,7 +19,7 @@ public class Moving : MonoBehaviour, IAction
 
     private float h = 4.0f;
 
-    public void Beging(object initValue)
+    public void Begin(object initValue)
     {
 
 

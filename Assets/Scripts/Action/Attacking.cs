@@ -13,7 +13,7 @@ public class Attacking : MonoBehaviour, IAction
     [SerializeField, Range(1.0f, 10.0f)]
     private float _range = 1.0f; //타겟 사이의 거리가 2.0f일때 작동
 
-    public void Beging(object initValue)
+    public void Begin(object initValue)
     {
         Damage target = initValue as Damage; // Damage로 변할 수 있으면 반환 아니면 null
         Debug.Assert(target != null, "입력 가능 자료형  : Damage");
