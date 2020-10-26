@@ -10,6 +10,9 @@ public class Attacking : MonoBehaviour, IAction
     private Damage _target = null;
     private Moving _moving = null;
 
+    [SerializeField, Range(10.0f, 100.0f)]
+    private float _atk = 10.0f;
+
     [SerializeField, Range(1.0f, 10.0f)]
     private float _range = 1.0f; //타겟 사이의 거리가 2.0f일때 작동
 
@@ -57,8 +60,10 @@ public class Attacking : MonoBehaviour, IAction
 
     private void OnAttack()
     {
+        if (_target == null) return;
+
         Debug.Log("Attack!");
-        _target.Hit();
+        _target.Hit(_atk);
     }
 
     private void OnAttackEnd()

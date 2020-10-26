@@ -13,6 +13,15 @@ public class EnemyController : MonoBehaviour
     [SerializeField, Range(1.0f, 10.0f)]
     private float _searchRange = 5.0f;
 
+    [SerializeField]
+    private WayPointes _waypoint = null;
+    private int _currentpointindex = 0;
+
+    [SerializeField]
+    private float _arrivedTime = 0.0f;
+    [SerializeField, Range(1.0f, 5.0f)]
+    private float _dwellTIme = 2.0f;
+
     private Vector3 _initPosition;
 
     private void Awake()
@@ -29,12 +38,50 @@ public class EnemyController : MonoBehaviour
             _attacking.Begin(_player.GetComponent<Damage>());
         }
         else
-            _moving.Begin(_initPosition);
+        {
+            if(_waypoint == null)
+            {
+                _moving.Begin(_initPosition);
+            }
+            else
+            {
+                
+                if(IsArrivedWaypoint() == true)
+                {
+                    _arrivedTime = 0.0f;
+                    _currentpointindex = _waypoint.GetNextIndex(_currentpointindex);
+                }
+
+                _next = GetCurrentWayPoint();
+                if (_arrivedTime > _dwellTIme)
+                {
+                    _moving.Begin(_next);
+                }
+                else
+                    _arrivedTime += Time.deltaTime;
+            }
+            
+        }
+    }
+
+    private Vector3 _next;
+
+    private Vector3 GetCurrentWayPoint()
+    {
+        return _waypoint.GetWayPoint(_currentpointindex);
+    }
+
+    private bool IsArrivedWaypoint()
+    {
+        Vector2 point = new Vector2(this.transform.position.x, this.transform.position.z);
+        Vector2 wayP = new Vector2(GetCurrentWayPoint().x, GetCurrentWayPoint().z);
+        return Vector2.Distance(point, wayP) < 0.25f;
     }
 
     private void Start()
     {
         _initPosition = this.transform.position;
+        _dwellTIme = 2.0f;
     }
 
     private bool InRange()

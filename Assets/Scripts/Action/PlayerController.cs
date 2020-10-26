@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
             foreach (RaycastHit hit in hits)
             {
                 Damage damage = hit.transform.GetComponent<Damage>();
-                if (damage == null)
+                if (damage == null || damage.gameObject == this.gameObject)
                     continue;
 
                 _attacking.Begin(damage);

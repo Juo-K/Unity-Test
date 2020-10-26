@@ -203,11 +203,16 @@ public class Sliding : MonoBehaviour, IAction
 
     private void SpawnParticle()
     {
+        _initPos.y += 0.5f;
+
+        if (_instantiatedParticle != null)
         _instantiatedParticle = Instantiate(_particle, _initPos, Quaternion.LookRotation(this.transform.forward));
     }
 
     private void DestroyParticle()
     {
+        if (_instantiatedParticle == null) return;
+
         ParticleSystem temp = _instantiatedParticle.GetComponent<ParticleSystem>();
         temp.Stop();
         Destroy(_instantiatedParticle);
