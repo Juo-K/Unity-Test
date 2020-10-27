@@ -10,14 +10,13 @@ public class Damage : MonoBehaviour
     private float _hp = 100.0f;
 
     private bool _bDead = false;
-    public bool Dead { get { return _bDead; } private set { _bDead = value; } } // get set함수 선언;
+    public bool Dead { get { return _bDead; } private set { _bDead = value; } }
 
     private Animator _animator = null;
     private List<Material> _materials = new List<Material>();
 
     private NavMeshAgent _navMeshAgent = null;
     private Collider[] _colliders = null;
-    
 
     private void Awake()
     {
@@ -27,26 +26,36 @@ public class Damage : MonoBehaviour
 
         Renderer[] renderers = this.GetComponentsInChildren<Renderer>();
         foreach(Renderer renderer in renderers)
-        {
             _materials.AddRange(renderer.materials);
-        }
     }
-   
 
-   public void Hit(float ad)
+    public void Hit(float ad)
     {
+
+        if (_bDead == true) return;
         _hp = Mathf.Max(_hp - ad, 0.0f);
+
         if (_hp <= 0.0f)
             GoAmerica();
-
         else
         {
             foreach (Material material in _materials)
                 material.color = Color.red;
-            _animator.SetTrigger("Hit");
 
-            Invoke("RestoreMaterial", 0.7f);// 이름안에 함수를 0.7초 후 호출;
+            _animator.SetTrigger("Hit");
+            Invoke("RestoreMaterial", 0.7f);
         }
+        
+    }
+
+    private void GoAmerica()
+    {
+        _bDead = true;
+        _navMeshAgent.enabled = false;
+        foreach (Collider col in _colliders)
+            col.enabled = false;
+
+        _animator.SetTrigger("Dead");
     }
 
     private void RemoveObject()
@@ -56,19 +65,9 @@ public class Damage : MonoBehaviour
 
     private void OnAmerica()
     {
-        Destroy(this.gameObject);
-        
-    }
-
-    private void GoAmerica()
-    {
-        _bDead = true;
-        _navMeshAgent.enabled = false;
-        foreach (Collider col in _colliders)
-        { col.enabled = false; }
-
-        _animator.SetTrigger("Dead");
-
+        //Destroy(this.gameObject);
+        //RemoveObject();
+        Invoke("RemoveObject", 0.7f);
     }
 
     private void RestoreMaterial()
@@ -76,5 +75,7 @@ public class Damage : MonoBehaviour
         foreach (Material material in _materials)
             material.color = Color.white;
     }
+
+   
 
 }
