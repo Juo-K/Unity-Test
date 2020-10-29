@@ -48,6 +48,12 @@ public class Attacking : MonoBehaviour, IAction
         _animator.ResetTrigger("Attack");
     }
 
+    public void Start()
+    {
+        if (_intWeapon == null) return;
+        Equip(_intWeapon);
+    }
+
     private void Awake()
     {
         _actionManager = this.GetComponent<ActionManager>();
@@ -83,6 +89,10 @@ public class Attacking : MonoBehaviour, IAction
         if (_target == null) return;
 
         Debug.Log("Attack!");
+
+        if (_currentWeapon.HasProjectile == true)
+            _currentWeapon.LaunchProjectile(_rightHand, _leftHand, _target);
+        else
         _target.Hit(_currentWeapon.Damage);
     }
 

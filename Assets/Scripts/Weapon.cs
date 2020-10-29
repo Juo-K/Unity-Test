@@ -22,6 +22,10 @@ public class Weapon :ScriptableObject
     [SerializeField]
     private bool _bRightHanded = true;
 
+    [SerializeField]
+    private Projectile _projectile = null;
+    public bool HasProjectile { get { return _projectile  != null; } }
+
     const string _weaponName = "Weapon";
 
     public void Spawn(Transform right, Transform left, Animator animator)
@@ -52,6 +56,22 @@ public class Weapon :ScriptableObject
 
         old.name = "DestoryWeapon";
         Destroy(old.gameObject);
+    }
+    [SerializeField, Range(5.0f, 20.0f)]
+    private float __speed = 7.0f;
+
+    [SerializeField, Range(1.0f, 5.0f)]
+    private float _lifeTile = 1.0f;
+
+    public void LaunchProjectile(Transform right, Transform left, Damage damage)
+    {
+        Transform hand = null;
+        hand = _bRightHanded ? left : right;
+
+        Projectile projectile = Instantiate(_projectile, hand.position, Quaternion.identity);
+        projectile.SetTarget(damage, _damage);
+        projectile.Speed = __speed;
+        projectile.LifeTime = _lifeTile;
     }
 
 }
