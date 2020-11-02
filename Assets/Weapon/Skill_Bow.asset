@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 103817f3a44362e4898dce9b7cd87aba, type: 3}
+  m_Name: Skill_Bow
+  m_EditorClassIdentifier: 
+  _source: {fileID: 3942060778995665008, guid: d26de34dbd7466249be1238640364b7c, type: 3}
+  _override: {fileID: 22100000, guid: 1ad2ec988bc280541b640ef118e5642b, type: 2}
+  _damage: 10
+  _range: 10
+  _bRightHanded: 0
+  _projectile: {fileID: 1520684562071673784, guid: ec21e92b6fb944b4792d3b974c0a01de,
+    type: 3}
+  __speed: 7
+  _lifeTile: 2.66

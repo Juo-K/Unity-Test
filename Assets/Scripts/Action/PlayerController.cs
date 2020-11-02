@@ -12,6 +12,9 @@ public class PlayerController : MonoBehaviour
     private NavMeshAgent _navMeshAgent = null;
     private Animator _animator = null;
     private Sliding _sliding = null;
+    private Skill _skill = null;
+
+    private Damage _enemyDamage = null;
 
     private void Awake()
     {
@@ -21,6 +24,8 @@ public class PlayerController : MonoBehaviour
         _moving = this.GetComponent<Moving>();
         _attacking = this.GetComponent<Attacking>();
         _sliding = this.GetComponent<Sliding>();
+        _skill = this.GetComponent<Skill>();
+        _enemyDamage = GameObject.Find("Enemy").GetComponent<Damage>();
     }
 
     // Update is called once per frame
@@ -29,6 +34,7 @@ public class PlayerController : MonoBehaviour
         if (Sliding() == true) return;
         if (Attacking() == true) return;
         if (Moving() == true) return;
+        if (Skill() == true) return;
     }
 
     private bool Attacking()
@@ -47,7 +53,20 @@ public class PlayerController : MonoBehaviour
             }
         }
         return false;
+
         
+        
+    }
+
+    private bool Skill()
+    {
+        if(Input.GetKeyDown(KeyCode.X))
+        {
+            _skill.Begin(1);
+            return true;
+        }
+
+        return false;
     }
 
     private bool Sliding()

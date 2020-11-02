@@ -254,6 +254,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _particle: {fileID: 1899724461870960, guid: 59df0f563f95c764e87867ff8ddcdb83, type: 3}
+--- !u!114 &29321949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 29321937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97723b8c5e13af74ca924516bbcbafb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _intWeapon: {fileID: 11400000, guid: e043b3865a0de1b49aa7565cd3f8d1d6, type: 2}
+  _rightHand: {fileID: 1343579158}
+  _leftHand: {fileID: 1302768226}
 --- !u!1001 &165530817
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -970,6 +985,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: ac2abb622bfb570468f3084516d11086, type: 2}
+    - target: {fileID: 9500000, guid: b4d36987681fda740a79f9ea4f81ed03, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4d36987681fda740a79f9ea4f81ed03, type: 3}
 --- !u!1 &929721628

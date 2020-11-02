@@ -24,6 +24,9 @@ public class Weapon :ScriptableObject
 
     [SerializeField]
     private Projectile _projectile = null;
+
+    //private Projectile _projectile = null;
+    private Projectile[] _weapons = null;
     public bool HasProjectile { get { return _projectile  != null; } }
 
     const string _weaponName = "Weapon";
@@ -66,12 +69,27 @@ public class Weapon :ScriptableObject
     public void LaunchProjectile(Transform right, Transform left, Damage damage)
     {
         Transform hand = null;
+        
         hand = _bRightHanded ? left : right;
+        
+        //Projectile projectile1 = Instantiate(_projectile, Vector3.zero, Quaternion.Euler(0,0, 0));
+       //_weapons = game.GetComponentsInChildren<Projectile>();
+        
+        
 
-        Projectile projectile = Instantiate(_projectile, hand.position, Quaternion.identity);
-        projectile.SetTarget(damage, _damage);
-        projectile.Speed = __speed;
-        projectile.LifeTime = _lifeTile;
+        for (int i = 0; i < 36; i++)
+        {
+            Vector3 pos = hand.position;
+            
+            pos.Set(pos.x + Random.Range(-10,10), pos.y + Random.Range(0, 5), pos.z + Random.Range(-10,10));
+
+            //Projectile projectile = Instantiate(_projectile, hand.position, Quaternion.Euler(0, hand.eulerAngles.y +  i *10, 0));
+            Projectile projectile = Instantiate(_projectile, pos, Quaternion.Euler(0, hand.eulerAngles.y + 25, 0));
+            projectile.SetTarget(damage, _damage);
+            projectile.Speed = __speed;
+            projectile.LifeTime = _lifeTile;
+        }
+
     }
 
 }

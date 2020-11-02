@@ -62,6 +62,8 @@ public class Attacking : MonoBehaviour, IAction
         _thistarget = this.GetComponent<Damage>();
     }
 
+
+
     private void Update()
     {
         if (_target == null) return;

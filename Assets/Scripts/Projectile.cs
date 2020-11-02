@@ -6,6 +6,7 @@ public class Projectile : MonoBehaviour
 {
     private Damage _target = null;
     private Vector3 _targetPos;
+    private Transform[] _child;
 
     private float _damage = 0.0f;
 
@@ -19,17 +20,27 @@ public class Projectile : MonoBehaviour
 
     private void Start()
     {
-        this.transform.LookAt(_targetPos);
+        //this.transform.LookAt(this.transform.forward);
         Invoke("Destroy", _lifeTime);
+
+        _child = gameObject.GetComponentsInChildren<Transform>();
+        
+
     }
 
     private void Update()
     {
         if (_bHit == true) return;
 
-        CalcTargetPos();
-        this.transform.LookAt(_targetPos);
-        this.transform.Translate(Vector3.forward * _speed * Time.deltaTime);
+        //CalcTargetPos();
+        //this.transform.LookAt(this.transform.forward);
+
+        foreach (Transform col in _child)
+        {
+            Vector3 dir = col.transform.position.normalized;
+            dir.y = 0;
+            col.transform.Translate(col.transform.right * _speed * Time.deltaTime);
+        }
     }
 
     public void SetTarget(Damage target, float damage)
@@ -42,12 +53,13 @@ public class Projectile : MonoBehaviour
     private void CalcTargetPos()
     {
 
-        Vector3 position = _target.transform.position;
-        position.y = this.transform.position.y;
-        position.y += Random.Range(-1.5f, 1.5f);
-        position.x += Random.Range(-1.5f, 1.5f);
-        _targetPos = position;
+        //Vector3 position = this.transform.forward;
+        //position.y = this.transform.position.y;
+        //position.y += Random.Range(-0.5f, 1.5f);
+       
+       // _targetPos = position;
         
+        //this.transform.LookAt(_targetPos);
     }
 
     private void Destroy()
